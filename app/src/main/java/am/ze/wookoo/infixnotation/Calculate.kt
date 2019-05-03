@@ -6,6 +6,24 @@ import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_calculate.*
 
+class Stack{
+    var top = -1
+    var data = ArrayList<Int>()
+    fun is_empty():Boolean{
+        return this.top == -1
+    }
+    fun push(n:Int){
+        this.data.add(n)
+    }
+    fun pop():Int{
+        return  (this.data.get(this.top--))
+    }
+    fun peek():Int{
+        return this.data.get(this.top)
+    }
+
+}
+
 class Calculate : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,6 +37,7 @@ class Calculate : AppCompatActivity() {
             }
         }
         val Signs = arrayOf(buttonPlus,buttonMinus,buttonMultiply,buttonDivde)
+
         for (i in Signs){
             i.setOnClickListener {
                 Log.d("기호 버튼",i.text.toString())
@@ -27,7 +46,7 @@ class Calculate : AppCompatActivity() {
                 Toast.makeText(this,"스트링 : ${StringTemp} 마지막 인덱스 :${StringTemp.lastIndex}",Toast.LENGTH_SHORT).show()
                 if (StringTemp.lastIndex >= 0 ){
                     val X = StringTemp[StringTemp.lastIndex]
-                    Toast.makeText(this,"누른 X 기호 : ${X}",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"이전 기호: ${X} 누른 기호 : ${i.text}",Toast.LENGTH_SHORT).show()
                     when(X){
                         '+','-','÷','*' -> Display.text = Display.text.toString().substring(0,StringTemp.lastIndex)  + i.text.toString()
                         else -> Display.text = Display.text.toString() + i.text
@@ -35,7 +54,6 @@ class Calculate : AppCompatActivity() {
                 }
             }
         }
-
 
         buttonClear.setOnClickListener { //클리어 버튼누르면
             Display.text = "" //디스플레이의 텍스트 초기화
