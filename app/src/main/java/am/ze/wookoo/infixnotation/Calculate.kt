@@ -18,7 +18,7 @@ class Calculate : AppCompatActivity() {
                 Display.text = Display.text.toString() + i.text.toString()
             }
         }
-        val Signs = arrayOf(buttonPlus,buttonMinus,buttonMultiply)
+        val Signs = arrayOf(buttonPlus,buttonMinus,buttonMultiply,buttonDivde)
         for (i in Signs){
             i.setOnClickListener {
                 Log.d("기호 버튼",i.text.toString())
@@ -29,7 +29,7 @@ class Calculate : AppCompatActivity() {
                     val X = StringTemp[StringTemp.lastIndex]
                     Toast.makeText(this,"누른 X 기호 : ${X}",Toast.LENGTH_SHORT).show()
                     when(X){
-                        '+','-','+','*' -> Display.text = Display.text.toString().substring(0,StringTemp.lastIndex)  + i.text.toString()
+                        '+','-','÷','*' -> Display.text = Display.text.toString().substring(0,StringTemp.lastIndex)  + i.text.toString()
                         else -> Display.text = Display.text.toString() + i.text
                     }
                 }
@@ -42,7 +42,7 @@ class Calculate : AppCompatActivity() {
         }
         buttonDel.setOnClickListener {
             if(Display.text.toString().lastIndex >=0){ //글자가 1개 이상이면
-                Display.text = Display.text.toString().substring(0,Display.text.toString().lastIndex)
+                Display.text = Display.text.toString().substring(0,Display.text.toString().lastIndex) //스트링을 하나 날려버린다
             }
         }
 
