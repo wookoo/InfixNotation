@@ -11,11 +11,10 @@ class Calculate : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculate)
-        val Numbers = arrayOf(button0,button1,button2,button3,button4,button5,button6,button7,button8,button9)
-        for (i in Numbers){
-            i.setOnClickListener {
-                Log.d("숫자 버튼",i.toString());
-                Toast.makeText(this, "누른 숫자 :${i.text}",Toast.LENGTH_SHORT).show()
+        val Numbers = arrayOf(button0,button1,button2,button3,button4,button5,button6,button7,button8,button9) //0~9 버튼을 배열로 만든다
+        for (i in Numbers){ //0~ 9버튼을 눌렀을때 하는 일 for 문으로 돌려버림
+            i.setOnClickListener { //클릭 리스너 설정
+                Log.d("숫자 버튼",i.toString());//로그확인
                 Display.text = Display.text.toString() + i.text.toString()
             }
         }
