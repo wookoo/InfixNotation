@@ -37,8 +37,13 @@ class Calculate : AppCompatActivity() {
         }
 
 
-        buttonClear.setOnClickListener {
-            Display.text = ""
+        buttonClear.setOnClickListener { //클리어 버튼누르면
+            Display.text = "" //디스플레이의 텍스트 초기화
+        }
+        buttonDel.setOnClickListener {
+            if(Display.text.toString().lastIndex >=0){ //글자가 1개 이상이면
+                Display.text = Display.text.toString().substring(0,Display.text.toString().lastIndex)
+            }
         }
 
     }
