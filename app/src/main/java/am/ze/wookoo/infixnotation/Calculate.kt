@@ -14,6 +14,7 @@ class Stack{
     }
     fun push(n:Int){
         this.data.add(n)
+        this.top+=1
     }
     fun pop():Int{
         return  (this.data.get(this.top--))
@@ -29,7 +30,7 @@ class Calculate : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculate)
-        val Numbers = arrayOf(button0,button1,button2,button3,button4,button5,button6,button7,button8,button9) //0~9 버튼을 배열로 만든다
+        val Numbers = arrayOf(button0,button1,button2,button3,button4,button5,button6,button7,button8,button9,buttonBracketEnd,buttonBracketStart) //0~9 버튼을 배열로 만든다
         for (i in Numbers){ //0~ 9버튼을 눌렀을때 하는 일 for 문으로 돌려버림
             i.setOnClickListener { //클릭 리스너 설정
                 Log.d("숫자 버튼",i.toString());//로그확인
@@ -62,6 +63,37 @@ class Calculate : AppCompatActivity() {
             if(Display.text.toString().lastIndex >=0){ //글자가 1개 이상이면
                 Display.text = Display.text.toString().substring(0,Display.text.toString().lastIndex) //스트링을 하나 날려버린다
             }
+        }
+
+        buttonEqual.setOnClickListener {
+            val BracketStack = Stack()
+            val tempString:String = Display.text.toString()
+            val StringSize = tempString.lastIndex
+            var IsTrue = true
+            Log.d("스트링 사이즈 " ,StringSize.toString())
+            if (StringSize != -1){
+                for(i in 0..StringSize){
+                    val tempChar = tempString[i]
+                    Log.d("TempChar",tempChar.toString())
+                    if(BracketStack.is_empty() && tempChar == ')'){
+                        IsTrue = false
+                        break
+                    }
+                    if(tempChar == ')'){
+                        BracketStack.pop()
+                    }
+                    else if(tempChar =='('){
+                        BracketStack.push(3)
+                    }
+
+                }
+                if(!IsTrue|| !BracketStack.is_empty()){
+                    Toast.makeText(this,"괄호가 올바르지 않습니다",Toast.LENGTH_SHORT).show()
+                }
+            }
+
+
+
         }
 
     }
