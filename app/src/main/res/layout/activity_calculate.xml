@@ -31,11 +31,11 @@
             <Button
                     android:text="("
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button("/>
+                    android:layout_height="wrap_content" android:id="@+id/buttonBlacketStart"/>
             <Button
                     android:text=")"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button)"/>
+                    android:layout_height="wrap_content" android:id="@+id/buttonBlacketEnd"/>
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/buttonDivde" android:text="÷"/>
