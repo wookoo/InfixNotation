@@ -70,8 +70,9 @@ class Calculate : AppCompatActivity() {
                     }
 
                 }
-                if(!IsTrue|| !BracketStack.is_empty()){
+                if(!IsTrue || !BracketStack.is_empty()){
                     Toast.makeText(this,"괄호가 올바르지 않습니다",Toast.LENGTH_SHORT).show()
+                    //괄호쌍이 올바르지 않을 경우 출력
                 }
                 else{
                     //괄호가 올바를 경우 할 작업 > 1. 중위식 후위식 변환
