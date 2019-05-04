@@ -13,7 +13,9 @@ class Stack{
     }
     fun pop():Int{
         this.top--;
-        return  (this.data.removeAt(this.data.lastIndex))
+        val temp = this.data.get(this.data.lastIndex)
+        this.data.removeAt(this.data.lastIndex)
+        return  (temp)
     }
     fun peek():Int{
         return this.data.get(this.top)
