@@ -108,11 +108,12 @@ class Calculate : AppCompatActivity() {
 
                     }
                     while(!ChangeStack.is_empty()){
-                        //Log.d("으악","${ChangeStack.pop().toChar()}")
                         ShowString += ChangeStack.pop().toChar().toString()
                     }
                     Log.d("변환된 식",ShowString)
                     Toast.makeText(this,"변환된 식  : ${ShowString}",Toast.LENGTH_SHORT).show()
+
+                    //이제 결과값을 띄워주면됨
                 }
             }
         }
