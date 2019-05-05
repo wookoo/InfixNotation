@@ -11,13 +11,45 @@ class Calculate : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculate)
-        val Numbers = arrayOf(button0,button1,button2,button3,button4,button5,button6,button7,button8,button9,buttonBracketEnd,buttonBracketStart) //0~9 버튼을 배열로 만든다
+        val Numbers = arrayOf(button0,button1,button2,button3,button4,button5,button6,button7,button8,button9) //0~9 버튼을 배열로 만든다
         for (i in Numbers){ //0~ 9버튼을 눌렀을때 하는 일 for 문으로 돌려버림
             i.setOnClickListener { //클릭 리스너 설정
-                Log.d("숫자 버튼",i.toString());//로그확인
-                Display.text = Display.text.toString() + i.text.toString()
+                /*
+                if(Display.text.toString().length <20){
+                    Log.d("숫자 버튼",i.toString());//로그확인
+                    Display.text = Display.text.toString() + i.text.toString()
+                }*/
+
+
+                var StringTemp:String = Display.text.toString()
+                // Toast.makeText(this,"스트링 : ${StringTemp} 마지막 인덱스 :${StringTemp.lastIndex}",Toast.LENGTH_SHORT).show()
+                if (StringTemp.length <20 ){
+                    try{
+                        val X = StringTemp[StringTemp.lastIndex]
+                        when(X){
+                            '0','1','2','3','4','5','6','7','8','9' -> Display.text = Display.text.toString().substring(0,StringTemp.lastIndex)  + i.text.toString()
+                            else -> Display.text = Display.text.toString() + i.text
+                        }
+                    }catch (e : Exception){
+                        Display.text = Display.text.toString() + i.text
+                    }
+
+                }
+
             }
         }
+        val Brakcets = arrayOf(buttonBracketEnd,buttonBracketStart)
+        for (i in Brakcets){
+            i.setOnClickListener {
+                if(Display.text.toString().length <20){
+                    Display.text = Display.text.toString() + i.text
+                }
+            }
+
+        }
+
+
+
         val Signs = arrayOf(buttonPlus,buttonMinus,buttonMultiply,buttonDivde)
 
         for (i in Signs){
@@ -26,12 +58,17 @@ class Calculate : AppCompatActivity() {
 
                 var StringTemp:String = Display.text.toString()
                // Toast.makeText(this,"스트링 : ${StringTemp} 마지막 인덱스 :${StringTemp.lastIndex}",Toast.LENGTH_SHORT).show()
-                if (StringTemp.lastIndex >= 0 ){
+                if (StringTemp.lastIndex >= 0 && StringTemp.length <20 ){
                     val X = StringTemp[StringTemp.lastIndex]
-                    //Toast.makeText(this,"이전 기호: ${X} 누른 기호 : ${i.text}",Toast.LENGTH_SHORT).show()
                     when(X){
                         '+','-','÷','*' -> Display.text = Display.text.toString().substring(0,StringTemp.lastIndex)  + i.text.toString()
                         else -> Display.text = Display.text.toString() + i.text
+                    }
+                }
+                else if(StringTemp.lastIndex >= 0){
+                    val X = StringTemp[StringTemp.lastIndex]
+                    when(X){
+                        '+','-','÷','*' -> Display.text = Display.text.toString().substring(0,StringTemp.lastIndex)  + i.text.toString()
                     }
                 }
             }
@@ -39,6 +76,7 @@ class Calculate : AppCompatActivity() {
 
         buttonClear.setOnClickListener { //클리어 버튼누르면
             Display.text = "" //디스플레이의 텍스트 초기화
+            Changed.text = ""
         }
         buttonDel.setOnClickListener {
             if(Display.text.toString().lastIndex >=0){ //글자가 1개 이상이면
@@ -47,12 +85,14 @@ class Calculate : AppCompatActivity() {
         }
 
         buttonEqual.setOnClickListener {
+
             val BracketStack = Stack()
             val tempString:String = Display.text.toString()
             val StringSize = tempString.lastIndex
             var IsTrue = true
             Log.d("스트링 사이즈 " ,StringSize.toString())
-            if (StringSize != -1){
+            var tempChar = tempString[StringSize]
+            if (StringSize != -1 && tempChar != '+' &&tempChar != '-' && tempChar != '÷'&& tempChar != '*' ){
                 for(i in 0..StringSize){
                     val tempChar = tempString[i]
                     //Log.d("TempChar",tempChar.toString())
@@ -112,9 +152,12 @@ class Calculate : AppCompatActivity() {
                     }
                     Log.d("변환된 식",ShowString)
                     Toast.makeText(this,"변환된 식  : ${ShowString}",Toast.LENGTH_SHORT).show()
-
+                    Changed.text = "변환된 식 : $ShowString"
                     //이제 결과값을 띄워주면됨
                 }
+            }
+            else{
+                Toast.makeText(this,"식이 올바르지 않습니다",Toast.LENGTH_SHORT).show()
             }
         }
 
