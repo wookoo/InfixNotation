@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_calculate.*
-import java.lang.Exception
-
 
 class Calculate : AppCompatActivity() {
 
@@ -27,10 +25,10 @@ class Calculate : AppCompatActivity() {
                 Log.d("기호 버튼",i.text.toString())
 
                 var StringTemp:String = Display.text.toString()
-                Toast.makeText(this,"스트링 : ${StringTemp} 마지막 인덱스 :${StringTemp.lastIndex}",Toast.LENGTH_SHORT).show()
+               // Toast.makeText(this,"스트링 : ${StringTemp} 마지막 인덱스 :${StringTemp.lastIndex}",Toast.LENGTH_SHORT).show()
                 if (StringTemp.lastIndex >= 0 ){
                     val X = StringTemp[StringTemp.lastIndex]
-                    Toast.makeText(this,"이전 기호: ${X} 누른 기호 : ${i.text}",Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this,"이전 기호: ${X} 누른 기호 : ${i.text}",Toast.LENGTH_SHORT).show()
                     when(X){
                         '+','-','÷','*' -> Display.text = Display.text.toString().substring(0,StringTemp.lastIndex)  + i.text.toString()
                         else -> Display.text = Display.text.toString() + i.text
@@ -99,20 +97,10 @@ class Calculate : AppCompatActivity() {
                             Log.d("PIE","수행")
                         }
                         else{
-                            try {
-                                while(true){
-
-                                    if(ChangeStack.is_empty() || pis(ChangeStack.peek().toChar() )< pie(sym)){
-                                        break
-                                    }
-                                   // print(ChangeStack.pop().toChar())
-                                    ShowString += ChangeStack.pop().toChar().toString()
-                                }
-
+                            while(!ChangeStack.is_empty() && pis(ChangeStack.peek().toChar() )>= pie(sym)){
+                                ShowString += ChangeStack.pop().toChar().toString()
                             }
-                            catch (e: Exception){
 
-                            }
                             ChangeStack.push(sym.toInt())
                             Log.d("스택관련","푸시 수행됨 들어간 값 : ${sym}")
 
@@ -124,6 +112,7 @@ class Calculate : AppCompatActivity() {
                         ShowString += ChangeStack.pop().toChar().toString()
                     }
                     Log.d("변환된 식",ShowString)
+                    Toast.makeText(this,"변환된 식  : ${ShowString}",Toast.LENGTH_SHORT).show()
                 }
             }
         }
