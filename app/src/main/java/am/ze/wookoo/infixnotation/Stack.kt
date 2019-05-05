@@ -1,6 +1,6 @@
 package am.ze.wookoo.infixnotation
 
-class Stack{
+open class Stack{
     var top = -1
     var data = ArrayList<Int>()
     fun is_empty():Boolean{
@@ -12,10 +12,15 @@ class Stack{
         this.top+=1
     }
     fun pop():Int{
-        this.top--;
-        val temp = this.data.get(this.data.lastIndex)
-        this.data.removeAt(this.data.lastIndex)
-        return  (temp)
+        if(!this.is_empty()){
+            this.top--;
+            val temp = this.data.get(this.data.lastIndex)
+            this.data.removeAt(this.data.lastIndex)
+            return  (temp)
+        }
+        return -1;
+
+
     }
     fun peek():Int{
         return this.data.get(this.top)

@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_calculate.*
-
+import java.lang.Exception
 
 
 class Calculate : AppCompatActivity() {
@@ -57,7 +57,7 @@ class Calculate : AppCompatActivity() {
             if (StringSize != -1){
                 for(i in 0..StringSize){
                     val tempChar = tempString[i]
-                    Log.d("TempChar",tempChar.toString())
+                    //Log.d("TempChar",tempChar.toString())
                     if(BracketStack.is_empty() && tempChar == ')'){
                         IsTrue = false
                         break
@@ -77,8 +77,77 @@ class Calculate : AppCompatActivity() {
                 else{
                     //괄호가 올바를 경우 할 작업 > 1. 중위식 후위식 변환
                     //2. 중위식 후위식 평가
+
+                    var ShowString:String =""
+                    val ChangeStack = Stack()
+                    for(i in 0..StringSize){
+                        val sym = tempString[i]
+                        if (sym == ')'){
+                            var left:Char
+                            while(true){
+                                left = ChangeStack.pop().toChar()
+                                if(left == '('){
+                                    break
+                                }
+                                print(left)
+                                ShowString += left.toString()
+                            }
+
+                        }
+                        else if (pie(sym) == -1){
+                            ShowString += sym.toString()
+                            Log.d("PIE","수행")
+                        }
+                        else{
+                            try {
+                                while(true){
+
+                                    if(ChangeStack.is_empty() || pis(ChangeStack.peek().toChar() )< pie(sym)){
+                                        break
+                                    }
+                                   // print(ChangeStack.pop().toChar())
+                                    ShowString += ChangeStack.pop().toChar().toString()
+                                }
+
+                            }
+                            catch (e: Exception){
+
+                            }
+                            ChangeStack.push(sym.toInt())
+                            Log.d("스택관련","푸시 수행됨 들어간 값 : ${sym}")
+
+                        }
+
+                    }
+                    while(!ChangeStack.is_empty()){
+                        //Log.d("으악","${ChangeStack.pop().toChar()}")
+                        ShowString += ChangeStack.pop().toChar().toString()
+                    }
+                    Log.d("변환된 식",ShowString)
                 }
             }
         }
+
     }
+
+    fun pis(sym: Char): Int {
+        when (sym) {
+            '(' -> return 0
+            ')' -> return 3
+            '+', '-' -> return 1
+            '*', '%', '÷' -> return 2
+        }
+        return -1
+    }
+
+    fun pie(sym: Char): Int {
+        when (sym) {
+            '(' -> return 3
+            ')' -> return 0
+            '+', '-' -> return 1
+            '*', '%', '÷' -> return 2
+        }
+        return -1
+    }
+
 }
