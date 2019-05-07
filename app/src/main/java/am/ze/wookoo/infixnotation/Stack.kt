@@ -3,6 +3,8 @@ package am.ze.wookoo.infixnotation
 open class Stack{
     var top = -1
     var data = ArrayList<Int>()
+
+
     fun is_empty():Boolean{
         return this.top == -1
     }
