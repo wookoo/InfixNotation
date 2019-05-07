@@ -48,8 +48,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/buttonBracketEnd"/>
             <Button
+                    android:text="C"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/buttonDivde" android:text="÷"/>
+                    android:layout_height="wrap_content" android:id="@+id/buttonClear"/>
             <Button
                     android:text="Del"
                     android:layout_width="wrap_content"
@@ -111,17 +112,20 @@
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <Button
-                    android:text="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button0"/>
-            <Button
                     android:text="="
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/buttonEqual"/>
             <Button
-                    android:text="C"
+                    android:text="0"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/buttonClear"/>
+                    android:layout_height="wrap_content" android:id="@+id/button0"/>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/buttonDivde" android:text="÷"/>
+            <Button
+                    android:text="^"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/buttonSquare"/>
         </TableRow>
     </TableLayout>
 </android.support.constraint.ConstraintLayout>
